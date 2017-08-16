@@ -1,0 +1,13 @@
+@import '../../styles/framework.scss';
+
+.login-box {
+    width: 300px;
+    margin: 80px auto;
+
+    .login-form-forgot {
+        float: right;
+    }
+    .login-form-button {
+        width: 100%;
+    }
+}

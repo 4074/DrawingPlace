@@ -1,0 +1,14 @@
+@import './variables.scss';
+
+.ant-input-number {
+    border-color: #e0e0e0;
+}
+
+.ant-input[disabled], .ant-input-number-disabled .ant-input-number-input {
+    color: $black;
+    opacity: 1;
+}
+
+.ant-select-disabled {
+    color: $black;
+}

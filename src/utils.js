@@ -1,5 +1,5 @@
 
-export function createResponseJSON(status = true, message = "操作成功", data = null) {
+export function jsonit(status = true, message = "操作成功", data = null) {
     if (typeof status !== "boolean") {
         data = status
         status = true

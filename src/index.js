@@ -4,14 +4,14 @@ import bodyParser from 'body-parser'
 import config from './config'
 import './connection'
 import session from './session'
-import route from './route'
+import api from './api'
 
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(session())
 
-route(app)
+app.use('/api', api)
 
 app.listen(config.app.port, (err) => {
     if (err) {

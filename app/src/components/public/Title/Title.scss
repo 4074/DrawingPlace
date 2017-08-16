@@ -1,0 +1,9 @@
+@import '../../../styles/framework.scss';
+
+.pm-title {
+    height: 36px;
+    margin-bottom: 24px;
+    line-height: 36px;
+    font-size: 16px;
+    border-bottom: solid 1px $gray_5;
+}

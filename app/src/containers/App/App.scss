@@ -1,0 +1,34 @@
+@import '../../styles/main.scss';
+
+html, body {
+    height: 100%;
+}
+
+#root, #root>div {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+.container {
+    width: $width_container_large;
+    margin: 0 auto;
+    transition: .2s ease-in;
+}
+
+// @media screen and (min-width: 1480px) {
+//     .container {
+//         width: $width_container_large;
+//     }
+// }
+
+.content {
+    @include scrollbar;
+    
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 52px;
+    overflow-y: scroll;
+}

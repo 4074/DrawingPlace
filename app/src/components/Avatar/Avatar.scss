@@ -1,0 +1,28 @@
+.avatar-card {
+    $height: 32px;
+    $text_height: 20px;
+    $name_padding: 5px;
+
+    padding: 0 $height+10px 0 0;
+    position: relative;
+
+    img {
+        width: $height;
+        border-radius: 50%;
+        position: absolute;
+        right: 0;
+    }
+
+    .info {
+        height: $height;
+        padding: ($height - $text_height)/2 0;
+        line-height: $text_height;
+
+        .username {
+            padding-right: $name_padding;
+        }
+        .type {
+            padding-left: $name_padding;
+        }
+    }
+}

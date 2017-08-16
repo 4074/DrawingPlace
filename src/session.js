@@ -10,8 +10,8 @@ export default function initSession() {
         key: config.app.name + '-session',
         secret: config.app.name,
         store: new MongoStore({mongooseConnection: mongoose.connection}),
-        resave: false,
-        saveUninitialized: false,
+        resave: true,
+        saveUninitialized: true,
         cookie: {
             httpOnly: false,
             maxAge: 30 * 24 * 3600 * 1000

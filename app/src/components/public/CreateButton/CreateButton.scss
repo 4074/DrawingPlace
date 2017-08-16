@@ -1,0 +1,55 @@
+@import '../../../styles/framework.scss';
+
+.pm-create-button{
+    @include border-radius;
+    @include text-gray(1);
+
+    height: 48px;
+    line-height: 46px;
+    border: 1px dashed $gray_5;
+    text-align: center;
+    cursor: pointer;
+    transition: all ease-in .4s;
+
+    &:hover {
+        background: rgba(255,255,255,.68);
+        border-color: transparent;
+        box-shadow: 0 1px 6px rgba(0,0,0,.2);
+    }
+
+    .title {
+        vertical-align: middle;
+    }
+
+    i {
+        font-size: 18px;
+        color: $primary;
+        padding-right: 8px;
+        vertical-align: middle;
+    }
+}
+
+.pm-create-project-button {
+    height: 48px;
+    .project-editor {
+        background: rgba(255,255,255,.68);
+        padding: 10px;
+        text-align: center;
+
+        .project-selector {
+            display: inline-block;
+            width: 140px;
+        }
+
+        button {
+            margin-left: 12px;
+        }
+    }
+
+    .pm-create-button {
+        font-size: 14px;
+        i {
+            font-size: 24px;
+        }
+    }
+}

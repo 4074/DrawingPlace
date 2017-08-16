@@ -1,0 +1,62 @@
+@import '../../styles/framework.scss';
+
+.header {
+    $height: 52px;
+
+    position: absolute;
+    z-index: 8;
+    width: 100%;
+    height: $height;
+    background: linear-gradient(to right, #049bbf, #52c4bd);
+    color: #fff;
+
+    .logo {
+        display: block;
+        font-size: 24px;
+        float: left;
+        color: #fff;
+        line-height: $height;
+    }
+
+    .avatar-card {
+        float: right;
+        margin-top: ($height - 32)/2;
+    }
+
+    .userinfo {
+        @include clearfix;
+        width: 140px;
+        height: $height;
+        float: right;
+        cursor: default;
+    }
+
+    .nav-menu {
+        float: left;
+        border: none;
+        padding: 2.5px 0 2.5px 0;
+        margin-left: 80px;
+        background: none;
+
+        > .ant-menu-item > a,  > .ant-menu-submenu > a {
+            color: rgba(255,255,255,.6);
+            &:hover {
+                color: #fff;
+            }
+        }
+
+        .ant-menu-item-selected > a {
+            color: #fff;
+        }
+
+        .ant-menu-item {
+            font-size: 14px;
+        }
+    }
+}
+
+.user-menu {
+    a {
+        text-align: center;
+    }
+}

@@ -1,0 +1,11 @@
+
+.pm-column-wrap {
+    display: flex;
+    margin: 0 -5px;
+    flex-wrap: wrap;
+
+    .pm-column {
+        width: 250px;
+        padding: 5px;
+    }
+}

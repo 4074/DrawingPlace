@@ -1,0 +1,83 @@
+
+@import './framework.scss';
+@import './antd-theme.scss';
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 12px;
+    color: #333;
+    letter-spacing: 0.8px;
+    background: $gray_7;
+}
+
+a {
+    color: $primary;
+    &:hover {
+        color: $primary_l_2;
+    }
+}
+
+.font-14 {
+    font-size: 14px;
+}
+
+.ellipsis {
+    @include ellipsis;
+}
+
+.summary-message {
+    @include text-gray(1);
+    strong {
+        @include text-black();
+        font-size: 14px;
+        font-weight: normal;
+    }
+}
+
+img {
+    border: none;
+}
+
+.text-gray {
+    @include text-gray;
+}
+.text-gray-light {
+    @include text-gray(2);
+}
+.text-red {
+    color: $red!important;
+}
+.text-primary {
+    @include text-primary;
+}
+
+.mt-24{
+    margin-top: 24px;
+}
+
+.btn-default {
+    @include btn-default;
+}
+
+.highcharts-container {
+    overflow: visible!important;
+    svg:not(:root) {
+        overflow: visible;
+    }
+}
+
+.module {
+    background: #fff;
+    min-height: 400px;
+    padding: 24px 16px;
+    margin-top: 24px;
+}
+
+.module-table {
+    .ant-table-thead > tr > th {
+        text-align: center;
+    }
+}

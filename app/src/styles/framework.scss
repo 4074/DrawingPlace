@@ -1,0 +1,91 @@
+@import './variables.scss';
+
+@mixin mt($value: 10px) {
+    margin-top: $value;
+}
+
+@mixin text-gray($index: 1) {
+    color: nth($gray_3 $gray_4 $gray_6, $index);
+}
+
+@mixin text-black() {
+    color: $black;
+}
+
+@mixin text-red() {
+    color: $red;
+}
+
+@mixin text-primary() {
+    color: $primary;
+}
+
+@mixin btn-default() {
+    background: #bbb;
+    color: #fff;
+    border-color: #bbb;
+    &:hover {
+        background: #bbb;
+        color: #fff;
+        border-color: #bbb;
+        opacity: 0.8;
+    }
+    &[disabled] {
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+@mixin clearfix() {
+    zoom: 1;
+    &:before, &:after {
+    	content: "";
+    	display: table;
+    }
+    &:after {
+    	clear: both;
+    }
+}
+
+@mixin border-radius($value: 3px) {
+    border-radius: $value
+}
+
+@mixin ellipsis($line: 1) {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+    word-break: break-all;
+}
+
+@mixin scrollbar() {
+    &::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-button {
+        display: none;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        min-height: 2rem;
+        background: #d2d2d2;
+        background-clip: padding-box;
+        border: 3px solid transparent;
+        border-radius: 5px
+    }
+
+    &::-webkit-scrollbar-thumb:hover, &::-webkit-scrollbar-thumb:active {
+        background-color: #aaa;
+        border-width: 2px
+    }
+}
