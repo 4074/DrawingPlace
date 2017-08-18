@@ -63,7 +63,7 @@ export default class Header extends Component {
         return (
             <div className="header">
                 <div className="container">
-                    <a className="logo" href="/">PLACE</a>
+                    <a className="logo" href="/">L</a>
                     { auth.user && this.renderNavMenu() }
                     { auth.user && this.renderUserInfo() }
                 </div>

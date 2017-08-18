@@ -108,27 +108,25 @@ export default class Utils {
         return 0
     }
 
-    static roles = [
-        { role: 1, text: '普通用户' },
-        { role: 2, text: '推广用户' },
-        { role: 3, text: '推广商家' },
-        { role: 4, text: '特约商家' }
-    ]
+    static getOffsetLeft(element){
+        let result = 0
+        do {
+            if (!isNaN(element.offsetLeft)){
+                result += element.offsetLeft
+            }
+        } while( element = element.offsetParent )
 
-    static orderStatus = [
-        { status: 1, text: '待付款' },
-        { status: 2, text: '发货中' },
-        { status: 3, text: '配送中' },
-        { status: 4, text: '已完成' }
-    ]
+        return result
+    }
 
-    static commodityStatus = [
-        { status: 0, text: '未上线' },
-        { status: 1, text: '使用中' }
-    ]
+    static getOffsetTop(element){
+        let result = 0
+        do {
+            if (!isNaN(element.offsetTop)){
+                result += element.offsetTop
+            }
+        } while( element = element.offsetParent )
 
-    static defaultStatus = [
-        { status: 0, text: '未上线' },
-        { status: 1, text: '使用中' }
-    ]
+        return result
+    }
 }

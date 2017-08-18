@@ -23,6 +23,7 @@
     "express-session": "^1.15.5",
     "moment": "^2.18.1",
     "mongoose": "^4.11.7",
+    "socket.io": "^2.0.3",
     "validator": "^8.0.0"
   },
   "devDependencies": {

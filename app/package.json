@@ -26,6 +26,7 @@
     "react-router-redux": "^4.0.8",
     "redux": "^3.6.0",
     "redux-async-connect": "^1.0.0-rc4",
+    "socket.io-client": "^2.0.3",
     "superagent": "^3.5.0"
   },
   "devDependencies": {

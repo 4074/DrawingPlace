@@ -30,9 +30,7 @@ export default class App extends Component {
             <div>
                 <Header />
                 <div className="content">
-                    <div className="container">
-                        {auth.user ? React.cloneElement(children, {}) : <Login />}
-                    </div>
+                    {auth.user ? React.cloneElement(children, {}) : <Login />}
                 </div>
             </div>
         )

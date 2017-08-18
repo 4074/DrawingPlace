@@ -9,7 +9,7 @@ export const urls = {
     }
 }
 
-export default function clientMiddleware(client) {
+export default function clientMiddleware(client, socket) {
     return ({dispatch, getState}) => {
         return next => action => {
             if (typeof action === 'function') {
@@ -24,7 +24,7 @@ export default function clientMiddleware(client) {
             const [REQUEST, SUCCESS, FAILURE] = types
             next({...rest, type: REQUEST})
 
-            const actionPromise = promise(client, urls)
+            const actionPromise = promise(action.socket ? socket : client, urls)
             actionPromise.then(
                 (result) => {
                     console.log(result)
@@ -45,10 +45,6 @@ export default function clientMiddleware(client) {
                     next({...rest, error, type: FAILURE})
                 }
             )
-            // .catch((error) => {
-            //     console.error('client middleware error:', error)
-            //     next({...rest, error, type: FAILURE})
-            // })
 
             return actionPromise
         }
