@@ -5,3 +5,12 @@
     width: 100%;
     height: 100%;
 }
+
+.content {
+    >.ant-spin-nested-loading {
+        height: 100%;
+        >div.ant-spin-container {
+            height: 100%;
+        }
+    }
+}

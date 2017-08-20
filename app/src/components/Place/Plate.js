@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import './styles/Plate.scss'
+
 const colors = [
     {r: 255, g: 255, b: 255},
     {r: 228, g: 228, b: 228},
@@ -17,13 +19,34 @@ const colors = [
     {r: 0, g: 0, b: 234},
     {r: 207, g: 110, b: 228},
     {r: 130, g: 0, b: 128},
-]
+].map(item => {
+    const result = []
+    for (const k of ['r', 'g', 'b']) {
+        let v = item[k].toString(16)
+        if (v.length === 1) {
+            v = '0' + v
+        }
+        result.push(v)
+    }
+    return '#' + result.join('')
+})
 
 export default class Plate extends Component {
+
+    handleClick(color) {
+        this.props.onSelectColor(color)
+    }
+
     render() {
         return (
             <div className="board-plate">
-
+                {
+                    colors.map(item =>
+                        <div className="plate-item" key={item}>
+                            <div style={{background: item}} onClick={this.handleClick.bind(this, item)}></div>
+                        </div>
+                    )
+                }
             </div>
         )
     }

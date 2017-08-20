@@ -3,12 +3,14 @@ import http from 'http'
 
 import {
     HomeController,
-    AuthController
+    AuthController,
+    PlaceController
 } from './controllers'
 
 const router = express.Router()
 
 router.use('/home', HomeController)
 router.use('/auth', AuthController)
+router.use('/place', PlaceController)
 
 export default router

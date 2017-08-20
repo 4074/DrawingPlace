@@ -12,6 +12,12 @@ const LOAD = 'auth/load'
 const LOAD_SUCCESS = 'auth/LOAD_SUCCESS'
 const LOAD_FAIL = 'auth/LOAD_FAIL'
 
+const TOGGLE_LOGIN = 'auth/TOGGLE_LOGIN'
+
+const SIGNUP = 'auth/SIGNUP'
+const SIGNUP_SUCCESS = 'auth/SIGNUP_SUCCESS'
+const SIGNUP_FAIL = 'auth/SIGNUP_FAIL'
+
 const initialState = {
     
 }
@@ -25,26 +31,66 @@ export default function reducer(state = initialState, action = {}) {
                 user: action.result
             }
         case SHOULD_LOGIN:
-            if (window.location.pathname !== '/login') {
-                history.pushState({}, '', '/login')
-            }
-            return {
-                ...state,
-                user: null
-            }
+            window.location.reload(true)
+            // if (window.location.pathname !== '/login') {
+            //     history.pushState({}, '', '/login')
+            // }
+            // return {
+            //     ...state,
+            //     user: null
+            // }
         case LOGIN:
-            return state
-        case LOGIN_SUCCESS:
-            window.__store.user = action.result
-            if (window.location.pathname === '/login') {
-                history.pushState({}, '', '/')
-            }
             return {
                 ...state,
-                user: action.result
+                logining: true
             }
+        case LOGIN_SUCCESS:
+            // window.__store.user = action.result
+            // if (window.location.pathname === '/login') {
+            //     history.pushState({}, '', '/')
+            // }
+            // return {
+            //     ...state,
+            //     user: action.result,
+            //     logining: false,
+            //     logined: true
+            // }
+            console.log('LOGIN_SUCCESS')
+            window.location.reload(true)
         case LOGIN_FAIL:
-            return state
+            return {
+                ...state,
+                logining: false,
+                logined: false,
+                login_error: action.error
+            }
+
+        case TOGGLE_LOGIN:
+            return {
+                ...state,
+                loginVisible: !!action.params.visible
+            }
+
+        case SIGNUP:
+            return {
+                ...state,
+                signuping: true
+            }
+        case SIGNUP_SUCCESS:
+            // return {
+            //     ...state,
+            //     signuping: false,
+            //     signuped: true
+            // }
+            window.location.reload(true)
+        case SIGNUP_FAIL:
+            return {
+                ...state,
+                signuping: false,
+                signuped: false,
+                signup_error: action.error
+            }
+
         default:
             return state
     }
@@ -54,6 +100,19 @@ export function redirect(params) {
     return {
         type: REDIRECT,
         params
+    }
+}
+
+export function signup(params) {
+    return {
+        types: [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAIL],
+        promise: (client, urls) => client.post(urls.auth.signup, {
+            data: {
+                data: {
+                    ...params
+                }
+            }
+        })
     }
 }
 
@@ -86,5 +145,12 @@ export function load() {
     return {
         types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
         promise: (client, urls) => client.get(urls.auth.get)
+    }
+}
+
+export function toggleLogin(visible) {
+    return {
+        type: TOGGLE_LOGIN,
+        params: { visible }
     }
 }

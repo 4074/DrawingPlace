@@ -4,8 +4,12 @@ import { SHOULD_LOGIN } from '../modules/auth'
 export const urls = {
     auth: {
         get: 'auth/get',
+        signup: 'auth/signup',
         login: 'auth/login',
         logout: 'auth/logout'
+    },
+    place: {
+        get: 'place/get'
     }
 }
 

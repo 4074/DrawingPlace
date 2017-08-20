@@ -58,14 +58,19 @@ export default class Header extends Component {
     }
 
     render() {
-        const { auth } = this.props
+        const { auth, onLogin } = this.props
 
         return (
             <div className="header">
                 <div className="container">
-                    <a className="logo" href="/">L</a>
+                    <a className="logo" href="/">PLACE</a>
                     { auth.user && this.renderNavMenu() }
-                    { auth.user && this.renderUserInfo() }
+                    {
+                        auth.user ? this.renderUserInfo() : 
+                        <div className="userinfo">
+                            <a className="link-login" onClick={onLogin}>Login</a>
+                        </div>
+                    }
                 </div>
             </div>
         )

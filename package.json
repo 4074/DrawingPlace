@@ -1,7 +1,7 @@
 {
   "name": "place",
   "version": "1.0.0",
-  "description": "",
+  "description": "place",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "https://git.coding.net/4074/place.git"
   },
-  "author": "",
+  "author": "4074",
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.5.0",

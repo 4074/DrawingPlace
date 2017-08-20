@@ -4,19 +4,19 @@ import Utils from 'utils'
 
 export default class Canvas extends Component {
     ratio = {
-        default: 1,
-        min: 1,
-        max: 24,
+        default: 4,
+        min: 4,
+        max: 28,
         step: 8
     }
 
     size = {
-        width: 1240,
-        height: 600
+        width: 310,
+        height: 150
     }
 
     state = {
-        ratio: 1
+        ratio: 4
     }
 
     mouseState = {
@@ -34,6 +34,7 @@ export default class Canvas extends Component {
         this.handleMouseMove = this.handleMouseMove.bind(this)
         this.handleMouseUp = this.handleMouseUp.bind(this)
         this.handleDoubleClick = this.handleDoubleClick.bind(this)
+        this.handleClick = this.handleClick.bind(this)
     }
 
     componentDidMount() {
@@ -95,6 +96,22 @@ export default class Canvas extends Component {
         this.mouseState.grab = false
     }
 
+    handleClick(event) {
+        const { color } = this.props
+        const position = this.getEventPosition(event)
+
+        if (color) {
+            const point = {
+                x: Math.ceil(position.x / this.state.ratio),
+                y: Math.ceil(position.y / this.state.ratio),
+                w: 1,
+                h: 1,
+                c: color
+            }
+            this.draw(point)
+        }
+    }
+
     handleDoubleClick(event) {
         this.setState({
             ratio: this.state.ratio === this.ratio.min ? this.ratio.max : this.ratio.min
@@ -136,6 +153,7 @@ export default class Canvas extends Component {
                     onMouseMove={this.handleMouseMove}
                     onMouseUp={this.handleMouseUp}
                     onMouseOut={this.handleMouseUp}
+                    onClick={this.handleClick}
                     onDoubleClick={this.handleDoubleClick}
                 />
             </div>

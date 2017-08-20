@@ -40,6 +40,7 @@ router.post('/signup', (req, res) => {
         username: params.username,
         password: params.password
     }).then((data) => {
+        req.session.user = data
         res.json(jsonit(true, data))
     }).catch((err) => {
         res.json(jsonit(false, err.message))

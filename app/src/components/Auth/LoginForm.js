@@ -1,8 +1,19 @@
 import React, { Component } from 'react'
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
-const FormItem = Form.Item;
+import { Form, Icon, Input, Button, Checkbox } from 'antd'
+
+import './styles/LoginForm.scss'
+
+const FormItem = Form.Item
 
 class NormalLoginForm extends Component {
+
+    constructor(props) {
+        super(props)
+
+        this.handleModeChange = this.handleModeChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -11,10 +22,17 @@ class NormalLoginForm extends Component {
             }
         });
     }
+
+    handleModeChange() {
+        const { mode, onModeChange } = this.props
+        onModeChange(mode === 'login' ? 'signup' : 'login')
+    }
+
     render() {
+        const { mode } = this.props
         const { getFieldDecorator } = this.props.form;
         return (
-            <Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
+            <Form onSubmit={this.handleSubmit} className="login-form">
                 <FormItem>
                     {getFieldDecorator('username', {
                         rules: [{ required: true, message: 'Please input your username!' }],
@@ -29,16 +47,26 @@ class NormalLoginForm extends Component {
                         <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
                         )}
                 </FormItem>
+                {
+                    mode === 'signup' &&
+                    <FormItem>
+                        {getFieldDecorator('password_again', {
+                            rules: [{ required: true, message: 'Please input your Password again!' }],
+                        })(
+                            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password Again" />
+                            )}
+                    </FormItem>
+                }
                 <FormItem>
-                    {getFieldDecorator('remember', {
-                        valuePropName: 'checked',
-                        initialValue: true,
-                    })(
-                        <Checkbox>一周免登录</Checkbox>
-                        )}
-                    <a className="login-form-forgot">忘记密码？</a>
+                    <a className="login-form-forgot" onClick={this.handleModeChange}>
+                        {
+                            mode === 'login' ? '注册帐号？' : '已有帐号，直接登录？'
+                        }
+                    </a>
                     <Button type="primary" htmlType="submit" className="login-form-button">
-                        登录
+                        {
+                            mode === 'login' ? '登录' : '注册'
+                        }
                     </Button>
                 </FormItem>
             </Form>

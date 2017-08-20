@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { asyncConnect } from 'redux-async-connect'
 import { push } from 'react-router-redux'
 
-import { isLoaded as isUserLoaded, load as loadUser } from 'redux/modules/auth'
+import { isLoaded as isUserLoaded, load as loadUser, toggleLogin } from 'redux/modules/auth'
 
 import Header from '../Header/Header'
 import './App.scss'
@@ -20,18 +20,30 @@ import { Login } from 'containers'
     }
 }])
 @connect(
-    (state) => ({ auth: state.auth })
+    (state) => ({ auth: state.auth }),
+    { toggleLogin }
 )
 export default class App extends Component {
+
+    constructor(props) {
+        super(props)
+
+        this.handleLoginVisible = this.handleLoginVisible.bind(this)
+    }
+
+    handleLoginVisible(visible) {
+        this.props.toggleLogin(visible)
+    }
+
     render() {
         const { children, auth } = this.props
         return (
-
             <div>
-                <Header />
+                <Header onLogin={this.handleLoginVisible} />
                 <div className="content">
-                    {auth.user ? React.cloneElement(children, {}) : <Login />}
+                    {React.cloneElement(children, {})}
                 </div>
+                <Login/>
             </div>
         )
     }
