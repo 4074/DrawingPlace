@@ -17,10 +17,10 @@ export default class Board extends Component {
 
     constructor(props) {
         super(props)
-        this.handleRatio = this.handleRatio.bind(this)
+        this.handleMove = this.handleMove.bind(this)
     }
 
-    handleRatio(point) {
+    handleMove(point) {
         this.setState({
             location: point
         })
@@ -33,7 +33,7 @@ export default class Board extends Component {
                 <Canvas
                     dataSource={dataSource}
                     color={color}
-                    onRatio={this.handleRatio}
+                    onMove={this.handleMove}
                 />
                 <div className="board-location">
                     { `(${this.state.location.x}, ${this.state.location.y})` }

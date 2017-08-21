@@ -4,19 +4,19 @@ import Utils from 'utils'
 
 export default class Canvas extends Component {
     ratio = {
-        default: 4,
-        min: 4,
-        max: 28,
-        step: 8
+        default: 2,
+        min: 2,
+        max: 8,
+        step: 2
     }
 
     size = {
-        width: 310,
-        height: 150
+        width: 620,
+        height: 300
     }
 
     state = {
-        ratio: 4
+        ratio: 2
     }
 
     mouseState = {
@@ -33,6 +33,7 @@ export default class Canvas extends Component {
         this.handleMouseDown = this.handleMouseDown.bind(this)
         this.handleMouseMove = this.handleMouseMove.bind(this)
         this.handleMouseUp = this.handleMouseUp.bind(this)
+        this.handleMouseOut = this.handleMouseOut.bind(this)
         this.handleDoubleClick = this.handleDoubleClick.bind(this)
         this.handleClick = this.handleClick.bind(this)
     }
@@ -42,28 +43,28 @@ export default class Canvas extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
+        let should = true
         if (this.state.ratio !== nextState.ratio) {
             setTimeout(() => {
                 this.initDraw()
             }, 17)
-            return true
         } else {
-            return false
+            should = false
         }
+        return should
     }
 
     handleWheel(event) {
-        console.log(event.deltaY)
         if (event.deltaY > 0) {
             if (this.state.ratio < this.ratio.max) {
                 this.setState({
-                    ratio: this.state.ratio === this.ratio.min ? this.ratio.step : (this.state.ratio + this.ratio.step)
+                    ratio: this.state.ratio + this.ratio.step //this.state.ratio === this.ratio.min ? this.ratio.step : (this.state.ratio + this.ratio.step)
                 })
             }
         } else {
             if (this.state.ratio > this.ratio.min) {
                 this.setState({
-                    ratio: this.state.ratio === this.ratio.step ? this.ratio.min : (this.state.ratio - this.ratio.step)
+                    ratio: this.state.ratio - this.ratio.step //this.state.ratio === this.ratio.step ? this.ratio.min : (this.state.ratio - this.ratio.step)
                 })
             }
         }
@@ -75,25 +76,51 @@ export default class Canvas extends Component {
         this.mouseState.grab = true
 
         this.mouseState.moveStartPosition = position
+        this.mouseState.scrollLeft = this.$board.scrollLeft
+        this.mouseState.scrollTop = this.$board.scrollTop
     }
 
     handleMouseMove(event) {
         const position = this.getEventPosition(event)
         if (!this.mouseState.grab) {
-            this.props.onRatio({
-                x: Math.ceil(position.x / this.state.ratio),
-                y: Math.ceil(position.y / this.state.ratio)
-            })
-        } else {
-            this.$board.scrollLeft = this.$board.scrollLeft + (this.mouseState.moveStartPosition.x - position.x)
-            this.$board.scrollTop = this.$board.scrollTop + (this.mouseState.moveStartPosition.y - position.y)
+            const { dataSource, color, onMove } = this.props
+            const point = {
+                x: Math.floor(position.x / this.state.ratio),
+                y: Math.floor(position.y / this.state.ratio)
+            }
+            onMove(point)
 
-            this.mouseState.moveStartPosition = position
+            if (this.mouseState.drawed) {
+                this.resetPoint(this.mouseState.drawed)
+            }
+
+            if (color) {
+                const drawData = {
+                    ...point,
+                    w: 1,
+                    h: 1,
+                    c: this.props.color
+                }
+
+                this.mouseState.drawed = drawData
+                this.draw(drawData)
+            }
+
+        } else {
+            this.$board.scrollLeft = this.mouseState.scrollLeft + (this.mouseState.moveStartPosition.x - position.x)
+            this.$board.scrollTop = this.mouseState.scrollTop + (this.mouseState.moveStartPosition.y - position.y)
         }
     }
 
     handleMouseUp(event) {
         this.mouseState.grab = false
+    }
+
+    handleMouseOut() {
+        this.mouseState.grab = false
+        if (this.mouseState.drawed) {
+            this.resetPoint(this.mouseState.drawed)
+        }
     }
 
     handleClick(event) {
@@ -102,8 +129,8 @@ export default class Canvas extends Component {
 
         if (color) {
             const point = {
-                x: Math.ceil(position.x / this.state.ratio),
-                y: Math.ceil(position.y / this.state.ratio),
+                x: Math.floor(position.x / this.state.ratio),
+                y: Math.floor(position.y / this.state.ratio),
                 w: 1,
                 h: 1,
                 c: color
@@ -141,7 +168,29 @@ export default class Canvas extends Component {
         ctx.fillRect(data.x * ratio, data.y * ratio, data.w * ratio, data.h * ratio)
     }
 
+    resetPoint(data) {
+        const { dataSource } = this.props
+        const resetData = dataSource.find(item => item.x === data.x && item.y === data.y)
+        if (resetData) {
+            this.draw(resetData)
+        } else {
+            this.clear({
+                ...data
+            })
+        }
+        
+    }
+
+    clear(data) {
+        const $canvas = this.$canvas
+        const ctx = $canvas.getContext('2d')
+        const { ratio } = this.state
+
+        ctx.clearRect(data.x * ratio, data.y * ratio, data.w * ratio, data.h * ratio)
+    }
+
     render() {
+        console.log('render')
         return (
             <div className="place-board" ref={($e) => this.$board = $e}>
                 <canvas
@@ -152,7 +201,7 @@ export default class Canvas extends Component {
                     onMouseDown={this.handleMouseDown}
                     onMouseMove={this.handleMouseMove}
                     onMouseUp={this.handleMouseUp}
-                    onMouseOut={this.handleMouseUp}
+                    onMouseOut={this.handleMouseOut}
                     onClick={this.handleClick}
                     onDoubleClick={this.handleDoubleClick}
                 />

@@ -21,12 +21,16 @@ export default class Place extends Component {
         }
     }
 
+    handleKeyPress(event) {
+        console.log(event)
+    }
+
     render() {
         const { place } = this.props
         
         return (
             <Spin spinning={place.loading}>
-                <div className="place">
+                <div className="place" onKeyPress={this.handleKeyPress.bind(this)}>
                     {
                         isLoaded(place) &&
                         <PlaceBoard
