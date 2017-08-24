@@ -1,5 +1,5 @@
 module.exports = {
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 5201,
     proxy: {
         '/api': {

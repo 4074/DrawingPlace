@@ -2,7 +2,7 @@ import express from 'express'
 import socketio from 'socket.io'
 
 import chat from './chat'
-import draw from './draw'
+import place from './place'
 
 const router = express.Router()
 
@@ -13,7 +13,7 @@ export default function(server) {
         chat(socket)
     })
     
-    io.of('/socket/draw').on('connection', (socket) => {
-        draw(socket)
+    io.of('/socket/place').on('connection', (socket) => {
+        place(socket)
     })
 }

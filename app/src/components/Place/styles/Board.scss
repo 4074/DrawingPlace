@@ -2,24 +2,37 @@
 
 .place-board-warp {
 
-    .board-location {
+    .board-info {
+        display: flex;
+        margin-top: 20px;
+        font-size: 14px;
+
+        >div {
+            &.info-location {
+                margin-left: 16px;
+            }
+
+            &.info-delay {
+                flex: 10;
+                text-align: right;
+            }
+        }
     }
 }
 
 .place-board {
+    // @include scrollbar;
     width: 1240px;
     height: 600px;
     overflow: hidden;
-    margin: 40px auto 0;
+    margin: 12px auto 0;
+    box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.2);
 
     .board-canvas {
         display: block;
         background: #fff;
         cursor: default;
-        // cursor: -webkit-grab;
-
-        // &.grabbing {
-        //     cursor: -webkit-grabbing
-        // }
+        outline: none;
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     }
 }

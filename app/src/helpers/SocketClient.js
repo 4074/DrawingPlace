@@ -3,11 +3,14 @@ import io from 'socket.io-client'
 export default class SocketClient {
     constructor() {
         this.chat = io('http://localhost:5200/socket/chat')
-        this.draw = io('http://localhost:5200/socket/draw')
+        this.place = io('http://localhost:5200/socket/place')
 
         console.log('connecting')
         this.chat.on('connect', () => {
-            console.log('connected')
+            console.log('chat connected')
+        })
+        this.place.on('connect', () => {
+            console.log('place connected')
         })
     }
 
@@ -15,10 +18,16 @@ export default class SocketClient {
         return new Promise((resolve, reject) => {
             channel.emit(event, {
                 user: window.__store.user,
-                ...params
+                data: {
+                    ...params
+                }
             }, result => {
                 resolve(result)
             })
         })
+    }
+
+    on(channel, event, cb) {
+        channel.on(event, cb)
     }
 }

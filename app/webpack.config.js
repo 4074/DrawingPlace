@@ -175,6 +175,7 @@ module.exports = function (env) {
             hot: true,
             contentBase: path.resolve(__dirname, 'build'),
             compress: true,
+            host: config.host,
             port: config.port,
             historyApiFallback: true,
             proxy: config.proxy

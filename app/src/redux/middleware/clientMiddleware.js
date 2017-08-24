@@ -20,18 +20,22 @@ export default function clientMiddleware(client, socket) {
                 return action(dispatch, getState)
             }
 
-            const { promise, types, ...rest } = action
+            const { promise, listen, types, ...rest } = action
+            if (listen) {
+                return listen(socket, next)
+            }
+
             if (!promise) {
                 return next(action)
             }
-
+            
             const [REQUEST, SUCCESS, FAILURE] = types
             next({...rest, type: REQUEST})
 
             const actionPromise = promise(action.socket ? socket : client, urls)
             actionPromise.then(
                 (result) => {
-                    console.log(result)
+                    
                     if (result.status) {
                         next({...rest, result: result.data, response: result, type: SUCCESS})
                     } else {

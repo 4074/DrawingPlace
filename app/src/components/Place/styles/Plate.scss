@@ -2,29 +2,36 @@
 
 .board-plate {
     display: flex;
-    width: 640px;
-    height: 40px;
+    flex-flow: row wrap;
+    width: 1240px;
+    height: 42px;
     background: #fff;
     border: solid 1px $gray_5;
-    border-radius: 8px;
+    // border-radius: 8px;
     padding: 0 4px;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
-    margin: auto;
+    margin: 16px auto 0;
 
     .plate-item {
-        height: 40px;
-        padding: 8px;
+        // width: 40px;
+        height: 38px;
+        padding: 6px 6.22px;
         flex: 1;
         
         div {
-            height: 24px;
+            height: 26px;
             border-radius: 4px;
             cursor: pointer;
+            transition: all 0.2s ease-in;
+            &:hover {
+                height: 28px;
+                margin: -1px -1px 0;
+            }
         }
 
-        &:first-child {
+        &:nth-child(2) {
             div {
-                border: solid 1px $gray_6;
+                border: solid 1px $gray_5;
             }
         }
     }

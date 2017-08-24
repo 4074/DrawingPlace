@@ -38,12 +38,13 @@ export default class Plate extends Component {
     }
 
     render() {
+        const { dataSource } = this.props
         return (
             <div className="board-plate">
                 {
-                    colors.map(item =>
+                    dataSource.map(item =>
                         <div className="plate-item" key={item}>
-                            <div style={{background: item}} onClick={this.handleClick.bind(this, item)}></div>
+                            <div style={{background: '#' + item}} onClick={this.handleClick.bind(this, '#' + item)}></div>
                         </div>
                     )
                 }
