@@ -73,29 +73,35 @@ export default class Canvas extends Component {
     }
 
     handleWheel(event) {
-        // event.preventDefault()
         let ratio
         if (event.deltaY > 0) {
             if (this.state.ratio < this.ratio.max) {
                 ratio = this.state.ratio + this.ratio.step
                 this.setState({
-                    ratio //this.state.ratio === this.ratio.min ? this.ratio.step : (this.state.ratio + this.ratio.step)
+                    ratio
                 })
             }
         } else {
             if (this.state.ratio > this.ratio.min) {
                 ratio = this.state.ratio - this.ratio.step
                 this.setState({
-                    ratio  //this.state.ratio === this.ratio.step ? this.ratio.min : (this.state.ratio - this.ratio.step)
+                    ratio
                 })
             }
         }
 
         if (ratio) {
+            const position = this.getEventPosition(event)
+            const diff = ratio / this.state.ratio
+            const x = position.x / this.state.ratio
+            const y = position.y / this.state.ratio
+            setTimeout(() => {
+                this.$board.scrollLeft = (this.$board.scrollLeft + x) * diff - x
+                this.$board.scrollTop = (this.$board.scrollTop + y) * diff - y
+            }, 17)
+
             this.props.onRatio((ratio - this.ratio.min) / this.ratio.step + 1)
         }
-        
-        // this.$board.style.overflow = ratio === this.ratio.min ? 'hidden' : 'auto'
     }
 
     handleMouseDown(event) {

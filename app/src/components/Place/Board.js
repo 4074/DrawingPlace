@@ -32,7 +32,6 @@ export default class Board extends Component {
     }
 
     handleRatio(ratio) {
-        console.log(ratio)
         this.setState({
             ratio
         })
@@ -58,7 +57,6 @@ export default class Board extends Component {
                 })
             }
         }, 1000)
-        console.log(params)
         this.props.onDraw(params)
     }
 

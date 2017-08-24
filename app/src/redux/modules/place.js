@@ -87,11 +87,9 @@ export function draw(params) {
 }
 
 export function listenDraw() {
-    console.log('listenDraw')
     return {
-        type: 'a',
+        type: '',
         listen: (socket, next) => {
-            console.log('listennnnnnnnnnn')
             socket.on(socket.place, 'draw', (data) => {
                 next({type: RECEIVE_DRAW, data})
             })
