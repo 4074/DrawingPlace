@@ -4,19 +4,19 @@ import Utils from 'utils'
 
 export default class Canvas extends Component {
     ratio = {
-        default: 1,
-        min: 1,
-        max: 5,
+        default: 2,
+        min: 2,
+        max: 8,
         step: 2
     }
 
     size = {
-        width: 1240,
-        height: 600
+        width: 620,
+        height: 300
     }
 
     state = {
-        ratio: 1
+        ratio: 2
     }
 
     mouseState = {
