@@ -7,14 +7,15 @@
     z-index: 8;
     width: 100%;
     height: $height;
-    background: #343434; //linear-gradient(to right, #049bbf, #52c4bd);
+    background: #002439; //linear-gradient(to right, #049bbf, #52c4bd);
     color: #fff;
 
     a.link-login {
         display: block;
         color: #fff;
-        font-size: 16px;
-        margin-top: 14px;
+        font-size: 14px;
+        margin-top: 16px;
+        text-align: right;
     }
 
     .logo {

@@ -68,7 +68,7 @@ export default class Header extends Component {
                     {
                         auth.user ? this.renderUserInfo() : 
                         <div className="userinfo">
-                            <a className="link-login" onClick={onLogin}>Login</a>
+                            <a className="link-login" onClick={onLogin}>登录</a>
                         </div>
                     }
                 </div>

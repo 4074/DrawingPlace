@@ -127,7 +127,7 @@ export default class Utils {
             }
         } while( element = element.offsetParent )
 
-        return result
+        return result - (document.querySelector('.content').scrollTop || 0)
     }
 
     static mergePoints(source, target) {

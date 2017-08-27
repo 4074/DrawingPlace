@@ -6,8 +6,8 @@ export default class Canvas extends Component {
     ratio = {
         default: 2,
         min: 2,
-        max: 8,
-        step: 2
+        max: 12,
+        step: 5
     }
 
     size = {
@@ -73,8 +73,9 @@ export default class Canvas extends Component {
     }
 
     handleWheel(event) {
+        event.preventDefault()
         let ratio
-        if (event.deltaY > 0) {
+        if (event.deltaY < 0) {
             if (this.state.ratio < this.ratio.max) {
                 ratio = this.state.ratio + this.ratio.step
                 this.setState({
@@ -96,8 +97,8 @@ export default class Canvas extends Component {
             const x = position.x / this.state.ratio
             const y = position.y / this.state.ratio
             setTimeout(() => {
-                this.$board.scrollLeft = (this.$board.scrollLeft + x) * diff - x
-                this.$board.scrollTop = (this.$board.scrollTop + y) * diff - y
+                this.$board.scrollLeft = ((this.$board.scrollLeft/this.ratio.default + x) * diff - x) * this.ratio.default
+                this.$board.scrollTop = ((this.$board.scrollTop/this.ratio.default + y) * diff - y) * this.ratio.default
             }, 17)
 
             this.props.onRatio((ratio - this.ratio.min) / this.ratio.step + 1)
