@@ -86,6 +86,13 @@ export default class Board extends Component {
                 />
                 
                 <Plate onSelectColor={this.props.onSelectColor} dataSource={colors} />
+
+                <div className="place-board-description">
+                    <span>1. 选择颜色后，点击绘板可以画一个点</span>
+                    <span>2. 鼠标滚轮向上为放大绘版(macOS相反)</span>
+                    <span>3. 放大后，按住鼠标左键可拖动绘板</span>
+                    <span>4. 5秒可画一个点，开始玩耍吧～</span>
+                </div>
             </div>
         )
     }

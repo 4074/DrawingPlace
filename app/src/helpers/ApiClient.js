@@ -20,7 +20,7 @@ export default class ApiClient {
                 const defaultData = {
                     userid: user.id,
                     username: user.username,
-                    redirect: window.location.href
+                    // redirect: window.location.hrefß
                 }
 
                 // 有 params 时 query defaultData

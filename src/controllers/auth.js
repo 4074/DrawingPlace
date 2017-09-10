@@ -7,7 +7,9 @@ import { jsonit } from '../utils'
 const router = express.Router()
 
 router.get('/get', (req, res) => {
-    const user = req.session.user ? req.session.user : null
+    const user = req.session.user ? req.session.user : {
+        username: 'nobody'
+    }
     res.json(jsonit(true, user))
 })
 
