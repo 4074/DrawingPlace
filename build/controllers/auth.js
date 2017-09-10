@@ -24,6 +24,7 @@ router.get('/get', function (req, res) {
     var user = req.session.user ? req.session.user : {
         username: 'nobody'
     };
+    req.session.user = user;
     res.json((0, _utils.jsonit)(true, user));
 });
 

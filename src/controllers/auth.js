@@ -10,6 +10,7 @@ router.get('/get', (req, res) => {
     const user = req.session.user ? req.session.user : {
         username: 'nobody'
     }
+    req.session.user = user
     res.json(jsonit(true, user))
 })
 
