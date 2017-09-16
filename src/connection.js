@@ -6,4 +6,7 @@ mongoose.Promise = bluebird
 
 export default mongoose.connect('mongodb://' + config.mongo.host + '/' + config.mongo.name, {
     useMongoClient: true
+}, (err) => {
+    if (err) return console.log(err);
+    console.log('mongo connected')
 })

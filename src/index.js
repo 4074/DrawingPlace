@@ -1,6 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import http from 'http'
+import path from 'path'
 
 import config from './config'
 import './connection'
@@ -22,7 +23,7 @@ app.use((req, res, next) => {
         return next()
     }
     
-    res.sendFile(__dirname + '/../app/build/index.html')
+    res.sendFile(path.resolve(__dirname, '../app/build/index.html'))
 })
 
 app.use('/api', api)

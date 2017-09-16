@@ -7,7 +7,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = function (server) {
     var io = (0, _socket2.default)(server);
     io.of('/socket/chat').on('connection', function (socket) {
-        console.log('connected');
         (0, _chat2.default)(socket);
     });
 

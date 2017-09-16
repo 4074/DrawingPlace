@@ -9,7 +9,6 @@ const router = express.Router()
 export default function(server) {
     const io = socketio(server)
     io.of('/socket/chat').on('connection', (socket) => {
-        console.log('connected')
         chat(socket)
     })
     
