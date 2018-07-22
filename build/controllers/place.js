@@ -24,7 +24,7 @@ router.get('/get', function (req, res) {
         var result = {
             colors: colors,
             points: data || [],
-            delay: 5
+            delay: 2
         };
         res.json((0, _utils.jsonit)(true, result));
     }).catch(function (err) {

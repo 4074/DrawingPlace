@@ -8,8 +8,6 @@ exports.signup = signup;
 
 var _models = require('../models');
 
-var _utils = require('../utils');
-
 function login(params) {
     return _models.User.find({ username: params.username }).then(function (data) {
         if (data.length === 0) {

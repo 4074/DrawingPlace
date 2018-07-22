@@ -9,7 +9,6 @@ import session from './session'
 import api from './api'
 import Socket from './sockets'
 
-
 const app = express()
 
 app.use(express.static(__dirname + '/../app/build'))

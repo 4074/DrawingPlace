@@ -22,7 +22,7 @@ router.get('/get', (req, res) => {
         const result = {
             colors,
             points: data || [],
-            delay: 5
+            delay: 2
         }
         res.json(jsonit(true, result))
     }).catch(err => {

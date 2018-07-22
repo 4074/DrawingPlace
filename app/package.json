@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack",
-    "release": "webpack --env.release=true",
-    "zip": "node zip.js"
+    "build": "webpack --env.release=true",
   },
   "author": "",
   "license": "ISC",
