@@ -6,7 +6,7 @@ export default class Canvas extends Component {
     ratio = {
         default: 2,
         min: 2,
-        max: 32,
+        max: 8,
         step: 5
     }
 
