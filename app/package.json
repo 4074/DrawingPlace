@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack --env.release=true",
+    "build": "webpack --env.release=true"
   },
   "author": "",
   "license": "ISC",
@@ -13,7 +13,7 @@
     "antd": "^2.9.0",
     "classnames": "^2.2.5",
     "lodash": "^4.17.4",
-    "moment": "^2.17.1",
+    "moment": "^2.19.3",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
     "react-dom": "^15.4.2",
