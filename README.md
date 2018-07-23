@@ -4,10 +4,10 @@
 
 Everyone drawing on a canvas. It is so cool!
 
-## How to use
+## How to use
 
 Requirements:
-- Node.js >= 6.11
+- Node.js >= 8.3
 - MongoDB >= 3.2
 
 Clone or Download this repo, and run
