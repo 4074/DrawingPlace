@@ -1,13 +1,13 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import http from 'http'
+import path from 'path'
 
 import config from './config'
 import './connection'
 import session from './session'
 import api from './api'
 import Socket from './sockets'
-
 
 const app = express()
 
@@ -22,7 +22,7 @@ app.use((req, res, next) => {
         return next()
     }
     
-    res.sendFile(__dirname + '/../app/build/index.html')
+    res.sendFile(path.resolve(__dirname, '../app/build/index.html'))
 })
 
 app.use('/api', api)

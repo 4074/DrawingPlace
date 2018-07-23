@@ -1,5 +1,4 @@
 import { User } from '../models'
-import { pushData } from '../utils'
 
 export function login(params) {
     return User.find({username: params.username}).then(data => {

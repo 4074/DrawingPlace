@@ -22,4 +22,7 @@ _mongoose2.default.Promise = _bluebird2.default;
 
 exports.default = _mongoose2.default.connect('mongodb://' + _config2.default.mongo.host + '/' + _config2.default.mongo.name, {
     useMongoClient: true
+}, function (err) {
+    if (err) return console.log(err);
+    console.log('mongo connected');
 });

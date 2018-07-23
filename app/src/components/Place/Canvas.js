@@ -47,6 +47,7 @@ export default class Canvas extends Component {
 
     componentDidMount() {
         this.dataSourceRendered = this.props.dataSource
+        this.ctx = this.$canvas.getContext('2d')
         this.initDraw()
         this.$canvas.focus()
     }
@@ -75,7 +76,7 @@ export default class Canvas extends Component {
     handleWheel(event) {
         event.preventDefault()
         let ratio
-        if (event.deltaY < 0) {
+        if (event.deltaY > 0) {
             if (this.state.ratio < this.ratio.max) {
                 ratio = this.state.ratio + this.ratio.step
                 this.setState({
@@ -92,17 +93,20 @@ export default class Canvas extends Component {
         }
 
         if (ratio) {
-            const position = this.getEventPosition(event)
-            const diff = ratio / this.state.ratio
-            const x = position.x / this.state.ratio
-            const y = position.y / this.state.ratio
-            setTimeout(() => {
-                this.$board.scrollLeft = ((this.$board.scrollLeft/this.ratio.default + x) * diff - x) * this.ratio.default
-                this.$board.scrollTop = ((this.$board.scrollTop/this.ratio.default + y) * diff - y) * this.ratio.default
-            }, 17)
-
-            this.props.onRatio((ratio - this.ratio.min) / this.ratio.step + 1)
+            this.scrollToFixRatio(ratio, this.getEventPosition(event))
         }
+    }
+
+    scrollToFixRatio(ratio, position) {
+        const diff = ratio / this.state.ratio
+        const x = position.x / this.state.ratio
+        const y = position.y / this.state.ratio
+        setTimeout(() => {
+            this.$board.scrollLeft = ((this.$board.scrollLeft/this.ratio.default + x) * diff - x) * this.ratio.default
+            this.$board.scrollTop = ((this.$board.scrollTop/this.ratio.default + y) * diff - y) * this.ratio.default
+        }, 17)
+
+        this.props.onRatio((ratio - this.ratio.min) / this.ratio.step + 1)
     }
 
     handleMouseDown(event) {
@@ -122,6 +126,7 @@ export default class Canvas extends Component {
             this.mouseState.moved = true
         }
         
+
         if (!this.mouseState.grab) {
             const { dataSource, color, onMove, editable } = this.props
 
@@ -138,6 +143,7 @@ export default class Canvas extends Component {
                     h: 1,
                     c: this.props.color
                 }
+
                 let needDraw = true
                 if (
                     this.mouseState.drawed &&
@@ -185,6 +191,14 @@ export default class Canvas extends Component {
         const { color, editable } = this.props
         const position = this.getEventPosition(event)
         if (color && !this.mouseState.moved && editable) {
+            // if (this.state.ratio === this.ratio.min) {
+            //     const ratio = this.ratio.max
+            //     this.setState({
+            //         ratio
+            //     })
+            //     this.scrollToFixRatio(ratio, position)
+            //     return
+            // }
             const point = {
                 x: Math.floor(position.x / this.state.ratio),
                 y: Math.floor(position.y / this.state.ratio),
@@ -227,18 +241,22 @@ export default class Canvas extends Component {
     }
 
     initDraw() {
+        const { ratio } = this.state
+        this.ctx.scale(ratio, ratio)
+        
         for (const item of this.dataSourceRendered) {
             this.draw(item, true)
         }
+        // ctx.setTransform(1, 0, 0, 1, 0, 0)
     }
 
     draw(data, real) {
         const $canvas = this.$canvas
-        const ctx = $canvas.getContext('2d')
+        const ctx = this.ctx
         const { ratio } = this.state
 
         ctx.fillStyle = data.c
-        ctx.fillRect(data.x * ratio, data.y * ratio, data.w * ratio, data.h * ratio)
+        ctx.fillRect(data.x, data.y, data.w, data.h)
 
         if (real) {
             const rendered = []
@@ -277,11 +295,7 @@ export default class Canvas extends Component {
     }
 
     clear(data) {
-        const $canvas = this.$canvas
-        const ctx = $canvas.getContext('2d')
-        const { ratio } = this.state
-
-        ctx.clearRect(data.x * ratio, data.y * ratio, data.w * ratio, data.h * ratio)
+        this.ctx.clearRect(data.x, data.y, data.w, data.h)
     }
 
     render() {

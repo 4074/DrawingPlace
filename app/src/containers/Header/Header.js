@@ -63,10 +63,10 @@ export default class Header extends Component {
         return (
             <div className="header">
                 <div className="container">
-                    <a className="logo" href="/">PLACE</a>
-                    { auth.user && this.renderNavMenu() }
+                    <a className="logo" href="/">Place</a>
+                    { auth.user && auth.user.level && this.renderNavMenu() }
                     {
-                        auth.user ? this.renderUserInfo() : 
+                        auth.user && auth.user.level ? this.renderUserInfo() : 
                         <div className="userinfo">
                             <a className="link-login" onClick={onLogin}>登录</a>
                         </div>

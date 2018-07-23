@@ -5,6 +5,10 @@ module.exports = {
         '/api': {
             target: 'http://localhost:5200',
             changeOrigin: true
+        },
+        '/socket.io': {
+            target: 'http://localhost:5200',
+            changeOrigin: true
         }
     }
 }

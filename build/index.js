@@ -12,6 +12,10 @@ var _http = require('http');
 
 var _http2 = _interopRequireDefault(_http);
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
 var _config = require('./config');
 
 var _config2 = _interopRequireDefault(_config);
@@ -45,7 +49,7 @@ app.use(function (req, res, next) {
         return next();
     }
 
-    res.sendFile(__dirname + '/../app/build/index.html');
+    res.sendFile(_path2.default.resolve(__dirname, '../app/build/index.html'));
 });
 
 app.use('/api', _api2.default);

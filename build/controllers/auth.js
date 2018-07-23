@@ -21,7 +21,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var router = _express2.default.Router();
 
 router.get('/get', function (req, res) {
-    var user = req.session.user ? req.session.user : null;
+    var user = req.session.user ? req.session.user : {
+        username: 'nobody'
+    };
+    req.session.user = user;
     res.json((0, _utils.jsonit)(true, user));
 });
 

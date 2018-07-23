@@ -2,8 +2,8 @@ import io from 'socket.io-client'
 
 export default class SocketClient {
     constructor() {
-        this.chat = io('http://localhost:5200/socket/chat')
-        this.place = io('http://localhost:5200/socket/place')
+        this.chat = io('/socket/chat')
+        this.place = io('/socket/place')
 
         console.log('connecting')
         this.chat.on('connect', () => {
