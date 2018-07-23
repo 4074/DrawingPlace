@@ -42,7 +42,7 @@ npm run build // release
 
 TODOs
 
-- Authorization
+- Authorization
 - Chat
 
 ## Contributing
