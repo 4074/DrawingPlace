@@ -6,7 +6,7 @@ export default class Canvas extends Component {
     ratio = {
         default: 2,
         min: 2,
-        max: 12,
+        max: 32,
         step: 5
     }
 
@@ -131,10 +131,6 @@ export default class Canvas extends Component {
             }
             onMove(point)
 
-            if (this.mouseState.drawed) {
-                this.resetPoint(this.mouseState.drawed)
-            }
-
             if (color && editable) {
                 const drawData = {
                     ...point,
@@ -142,9 +138,23 @@ export default class Canvas extends Component {
                     h: 1,
                     c: this.props.color
                 }
-
-                this.mouseState.drawed = drawData
-                this.draw(drawData)
+                let needDraw = true
+                if (
+                    this.mouseState.drawed &&
+                    this.mouseState.drawed.x === drawData.x && this.mouseState.drawed.y === drawData.y
+                ) {
+                    needDraw = false
+                }
+                if (needDraw) {
+                    this.mouseState.drawed && this.resetPoint(this.mouseState.drawed)
+                    this.draw(drawData)
+                    this.mouseState.drawed = drawData
+                }
+            } else {
+                if (this.mouseState.drawed) {
+                    this.resetPoint(this.mouseState.drawed)
+                    this.mouseState.drawed = null
+                }
             }
 
         } else {
