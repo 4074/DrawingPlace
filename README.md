@@ -1,8 +1,10 @@
 # Drawing Place
 
-A website for pixel drawing. Similar to Reddit [r/place](https://www.reddit.com/r/place) and [BiliBili夏日绘板](https://live.bilibili.com/pages/1702/pixel-drawing). 
+A website for pixel drawing. Similar to Reddit [r/place](https://www.reddit.com/r/place) and [BiliBili夏日绘板](https://live.bilibili.com/pages/1702/pixel-drawing)
 
 Everyone drawing on a canvas. It is so cool!
+
+Try it online [https://place.4074.name](https://place.4074.name)
 
 ## How to use
 
