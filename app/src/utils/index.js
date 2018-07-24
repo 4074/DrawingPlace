@@ -110,24 +110,33 @@ export default class Utils {
 
     static getOffsetLeft(element){
         let result = 0
-        do {
-            if (!isNaN(element.offsetLeft)){
-                result += element.offsetLeft
-            }
-        } while( element = element.offsetParent )
+        if (element.getBoundingClientRect) {
+            result = element.getBoundingClientRect().left
+        } else {
+            do {
+                if (!isNaN(element.offsetLeft)){
+                    result += element.offsetLeft
+                }
+            } while( element = element.offsetParent )
+        }
 
         return result
     }
 
     static getOffsetTop(element){
         let result = 0
-        do {
-            if (!isNaN(element.offsetTop)){
-                result += element.offsetTop
-            }
-        } while( element = element.offsetParent )
-
-        return result - (document.querySelector('.content').scrollTop || 0)
+        if (element.getBoundingClientRect) {
+            result = element.getBoundingClientRect().top
+        } else {
+            do {
+                if (!isNaN(element.offsetTop)){
+                    result += element.offsetTop
+                }
+            } while( element = element.offsetParent )
+            result - (document.querySelector('.content').scrollTop || 0)
+        }
+        
+        return result
     }
 
     static mergePoints(source, target) {

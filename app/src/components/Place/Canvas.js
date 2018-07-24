@@ -7,7 +7,8 @@ export default class Canvas extends Component {
         default: 2,
         min: 2,
         max: 8,
-        step: 5
+        step: 3,
+        current: 2
     }
 
     size = {
@@ -61,11 +62,13 @@ export default class Canvas extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        let should = true
+        let should = false
         if (this.state.ratio !== nextState.ratio) {
+            this.$canvas.setAttribute('width', this.size.width * nextState.ratio)
+            this.$canvas.setAttribute('height', this.size.height * nextState.ratio)
             setTimeout(() => {
                 this.initDraw()
-            }, 17)
+            }, 0)
         } else {
             should = false
         }
@@ -79,6 +82,7 @@ export default class Canvas extends Component {
         if (event.deltaY > 0) {
             if (this.state.ratio < this.ratio.max) {
                 ratio = this.state.ratio + this.ratio.step
+                this.ratio.current = ratio
                 this.setState({
                     ratio
                 })
@@ -86,6 +90,7 @@ export default class Canvas extends Component {
         } else {
             if (this.state.ratio > this.ratio.min) {
                 ratio = this.state.ratio - this.ratio.step
+                this.ratio.current = ratio
                 this.setState({
                     ratio
                 })
@@ -93,17 +98,21 @@ export default class Canvas extends Component {
         }
 
         if (ratio) {
-            this.scrollToFixRatio(ratio, this.getEventPosition(event))
+            this.scrollToFixRatio(ratio, this.getEventRelativePosition(event))
         }
     }
 
     scrollToFixRatio(ratio, position) {
         const diff = ratio / this.state.ratio
-        const x = position.x / this.state.ratio
-        const y = position.y / this.state.ratio
+        const x = (position.x - this.$board.scrollLeft) / this.state.ratio
+        const y = (position.y - this.$board.scrollTop) / this.state.ratio
+
+        const left = ((this.$board.scrollLeft/this.ratio.default + x) * diff - x) * this.ratio.default
+        const top = ((this.$board.scrollTop/this.ratio.default + y) * diff - y) * this.ratio.default
+
         setTimeout(() => {
-            this.$board.scrollLeft = ((this.$board.scrollLeft/this.ratio.default + x) * diff - x) * this.ratio.default
-            this.$board.scrollTop = ((this.$board.scrollTop/this.ratio.default + y) * diff - y) * this.ratio.default
+            this.$board.scrollLeft = left
+            this.$board.scrollTop = top
         }, 17)
 
         this.props.onRatio((ratio - this.ratio.min) / this.ratio.step + 1)
@@ -234,6 +243,13 @@ export default class Canvas extends Component {
     }
 
     getEventPosition(event) {
+        let x = event.clientX //+ this.$board.scrollLeft - Utils.getOffsetLeft(event.target)
+        let y = event.clientY //+ this.$board.scrollTop - Utils.getOffsetTop(event.target)
+
+        return {x, y}
+    }
+
+    getEventRelativePosition(event) {
         let x = event.clientX + this.$board.scrollLeft - Utils.getOffsetLeft(event.target)
         let y = event.clientY + this.$board.scrollTop - Utils.getOffsetTop(event.target)
 
