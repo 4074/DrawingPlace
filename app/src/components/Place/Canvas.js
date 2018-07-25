@@ -261,12 +261,12 @@ export default class Canvas extends Component {
         this.ctx.scale(ratio, ratio)
         
         for (const item of this.dataSourceRendered) {
-            this.draw(item, true)
+            this.draw(item, true, false)
         }
         // ctx.setTransform(1, 0, 0, 1, 0, 0)
     }
 
-    draw(data, real) {
+    draw(data, real, save = true) {
         const $canvas = this.$canvas
         const ctx = this.ctx
         const { ratio } = this.state
@@ -274,7 +274,7 @@ export default class Canvas extends Component {
         ctx.fillStyle = data.c
         ctx.fillRect(data.x, data.y, data.w, data.h)
 
-        if (real) {
+        if (real && save) {
             const rendered = []
             let has = false
             for (const d of this.dataSourceRendered) {
