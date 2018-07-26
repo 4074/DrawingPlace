@@ -6,8 +6,8 @@ export default class Canvas extends Component {
     ratio = {
         default: 2,
         min: 2,
-        max: 8,
-        step: 3,
+        max: 10,
+        step: 4,
         current: 2
     }
 
@@ -102,13 +102,25 @@ export default class Canvas extends Component {
         }
     }
 
-    scrollToFixRatio(ratio, position) {
-        const diff = ratio / this.state.ratio
-        const x = (position.x - this.$board.scrollLeft) / this.state.ratio
-        const y = (position.y - this.$board.scrollTop) / this.state.ratio
+    ratioAnchor = {}
 
-        const left = ((this.$board.scrollLeft/this.ratio.default + x) * diff - x) * this.ratio.default
-        const top = ((this.$board.scrollTop/this.ratio.default + y) * diff - y) * this.ratio.default
+    scrollToFixRatio(ratio, position) {
+        const x = position.x / this.state.ratio
+        const y = position.y / this.state.ratio
+
+        const anchorX = position.x - this.$board.scrollLeft
+        const anchorY = position.y - this.$board.scrollTop
+
+        let left = x * (ratio - this.ratio.default)
+        let top = y * (ratio - this.ratio.default)
+
+        if (this.ratioAnchor.x) {
+            left -= anchorX - this.ratioAnchor.x
+            top -= anchorY - this.ratioAnchor.y
+        }
+
+        this.ratioAnchor.x = anchorX
+        this.ratioAnchor.y = anchorY
 
         setTimeout(() => {
             this.$board.scrollLeft = left
@@ -130,21 +142,15 @@ export default class Canvas extends Component {
     }
 
     handleMouseMove(event) {
-        const position = this.getEventPosition(event)
-        if (position.x !== this.mouseState.grabPosition.x && position.y !== this.mouseState.grabPosition.y) {
-            this.mouseState.moved = true
-        }
-        
-
         if (!this.mouseState.grab) {
-            const { dataSource, color, onMove, editable } = this.props
+            const position = this.getEventRelativePosition(event)
 
+            const { color, onMove, editable } = this.props
             const point = {
                 x: Math.floor(position.x / this.state.ratio),
                 y: Math.floor(position.y / this.state.ratio)
             }
             onMove(point)
-
             if (color && editable) {
                 const drawData = {
                     ...point,
@@ -173,6 +179,11 @@ export default class Canvas extends Component {
             }
 
         } else {
+            const position = this.getEventPosition(event)
+            if (position.x !== this.mouseState.grabPosition.x && position.y !== this.mouseState.grabPosition.y) {
+                this.mouseState.moved = true
+            }
+
             if (this.mouseState.drawed) {
                 this.resetPoint(this.mouseState.drawed)
             }
@@ -198,7 +209,7 @@ export default class Canvas extends Component {
 
     handleClick(event) {
         const { color, editable } = this.props
-        const position = this.getEventPosition(event)
+        const position = this.getEventRelativePosition(event)
         if (color && !this.mouseState.moved && editable) {
             // if (this.state.ratio === this.ratio.min) {
             //     const ratio = this.ratio.max
@@ -250,9 +261,8 @@ export default class Canvas extends Component {
     }
 
     getEventRelativePosition(event) {
-        let x = event.clientX + this.$board.scrollLeft - Utils.getOffsetLeft(event.target)
-        let y = event.clientY + this.$board.scrollTop - Utils.getOffsetTop(event.target)
-
+        let x = event.clientX - Utils.getOffsetLeft(event.target)
+        let y = event.clientY - Utils.getOffsetTop(event.target)
         return {x, y}
     }
 

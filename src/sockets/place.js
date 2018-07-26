@@ -3,6 +3,7 @@ import { PlaceService } from '../services'
 
 export default function draw(socket) {
     socket.on('draw', (params, cb) => {
+        console.log(params)
         const { user, data } = params
         socket.emit('draw', data)
         socket.broadcast.emit('draw', data)
