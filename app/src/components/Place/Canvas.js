@@ -102,26 +102,11 @@ export default class Canvas extends Component {
         }
     }
 
-    ratioAnchor = {}
 
     scrollToFixRatio(ratio, position) {
-        const x = position.x / this.state.ratio
-        const y = position.y / this.state.ratio
-
-        const anchorX = position.x - this.$board.scrollLeft
-        const anchorY = position.y - this.$board.scrollTop
-
-        let left = x * (ratio - this.ratio.default)
-        let top = y * (ratio - this.ratio.default)
-
-        if (this.ratioAnchor.x) {
-            left -= anchorX - this.ratioAnchor.x
-            top -= anchorY - this.ratioAnchor.y
-        }
-
-        this.ratioAnchor.x = anchorX
-        this.ratioAnchor.y = anchorY
-
+        let left = this.$board.scrollLeft + position.x * (ratio/this.state.ratio) - position.x
+        let top = this.$board.scrollTop + position.y * (ratio/this.state.ratio) - position.y
+        
         setTimeout(() => {
             this.$board.scrollLeft = left
             this.$board.scrollTop = top

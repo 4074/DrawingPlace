@@ -10,6 +10,6 @@ exports.default = {
     },
     mongo: {
         host: 'localhost',
-        name: 'places'
+        name: 'place'
     }
 };

@@ -14,6 +14,7 @@ var _services = require('../services');
 
 function draw(socket) {
     socket.on('draw', function (params, cb) {
+        console.log(params);
         var user = params.user,
             data = params.data;
 

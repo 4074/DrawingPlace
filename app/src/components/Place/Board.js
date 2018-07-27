@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Utils from 'utils'
 
 import Canvas from './Canvas'
 import Plate from './Plate'
