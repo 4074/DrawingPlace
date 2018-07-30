@@ -18,6 +18,18 @@
         text-align: right;
     }
 
+    .header-icon-github {
+        width: 28px;
+        height: 28px;
+        float: right;
+        margin-top: 12px;
+        color: rgba(255,255,255,.6);
+        cursor: pointer;
+        &:hover {
+            color: rgba(255,255,255,1);
+        }
+    }
+
     .logo {
         display: block;
         font-size: 24px;
