@@ -8,7 +8,8 @@ export default class Canvas extends Component {
         min: 2,
         max: 10,
         step: 4,
-        current: 2
+        current: 2,
+        changing: false
     }
 
     size = {
@@ -78,8 +79,9 @@ export default class Canvas extends Component {
 
     handleWheel(event) {
         event.preventDefault()
+        if (this.ratio.changing) return;
         let ratio
-        if (event.deltaY > 0) {
+        if (event.deltaY < 0) {
             if (this.state.ratio < this.ratio.max) {
                 ratio = this.state.ratio + this.ratio.step
                 this.ratio.current = ratio
@@ -98,6 +100,7 @@ export default class Canvas extends Component {
         }
 
         if (ratio) {
+            this.ratio.changing = true
             this.scrollToFixRatio(ratio, this.getEventRelativePosition(event))
         }
     }
@@ -110,6 +113,7 @@ export default class Canvas extends Component {
         setTimeout(() => {
             this.$board.scrollLeft = left
             this.$board.scrollTop = top
+            this.ratio.changing = false
         }, 17)
 
         this.props.onRatio((ratio - this.ratio.min) / this.ratio.step + 1)
