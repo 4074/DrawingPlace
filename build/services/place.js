@@ -9,8 +9,10 @@ exports.savePoint = savePoint;
 
 var _models = require('../models');
 
-function findPoints(params) {
-    return _models.Point.find();
+function findPoints() {
+    var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    return _models.Point.find(params).select('-_id -create_at -update_at');
 }
 
 function createAction(params) {
