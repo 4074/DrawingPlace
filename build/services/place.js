@@ -12,7 +12,7 @@ var _models = require('../models');
 function findPoints() {
     var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-    return _models.Point.find(params).select('-_id -create_at -update_at');
+    return _models.Point.find(params).select('-_id -create_at -update_at -__v');
 }
 
 function createAction(params) {

@@ -55,10 +55,9 @@ export default class Canvas extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        for (const item of nextProps.dataSource) {
-            if (!this.dataSourceRendered.find(d => item.x === d.x && item.y === d.y)) {
-                this.draw(item, true)
-            }
+        // draw the last point
+        if (nextProps.dataSource.length) {
+            this.draw(nextProps.dataSource[nextProps.dataSource.length - 1], true)
         }
     }
 

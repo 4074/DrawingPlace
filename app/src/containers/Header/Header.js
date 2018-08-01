@@ -70,7 +70,7 @@ export default class Header extends Component {
                     23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 
                     512 114.62 397.37 0 256 0z"
                     fill="currentColor"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                 >
                 </path>
             </svg>

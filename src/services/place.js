@@ -1,7 +1,7 @@
 import { Place, Point, Action } from '../models'
 
 export function findPoints(params = {}) {
-    return Point.find(params).select('-_id -create_at -update_at')
+    return Point.find(params).select('-_id -create_at -update_at -__v')
 }
 
 export function createAction(params) {

@@ -141,23 +141,18 @@ export default class Utils {
 
     static mergePoints(source, target) {
         const result = []
-        let has = false
+
         for (const item of source) {
             if (item.x === target.x && item.y === target.y) {
-                has = true
-                result.push({
-                    ...target
-                })
+
             } else {
                 result.push(item)
             }
         }
 
-        if (!has) {
-            result.push({
-                ...target
-            })
-        }
+        result.push({
+            ...target
+        })
         
         return result
     }
