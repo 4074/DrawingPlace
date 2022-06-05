@@ -4,7 +4,7 @@ A website for pixel drawing. Similar to Reddit [r/place](https://www.reddit.com/
 
 Everyone drawing on a canvas. It is so cool!
 
-Try it online [https://place.4074.name](https://place.4074.name)
+Try it online [https://place.i4074.com](https://place.i4074.com)
 
 ## How to use
 
